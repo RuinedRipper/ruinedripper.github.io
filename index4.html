@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>AGRIDERA | Contact Us</title>
+  </head>
+  <body>
+    <header class="wrapper">
+      <nav class="header-nav">
+        <ul class="ul">
+          <li>
+            <a href="index.html"
+              ><img class="logo" src="assets/img/icon/Logo.png" alt="logo"
+            /></a>
+          </li>
+        </ul>
+
+        <div>
+          <div class="search-header">
+            <input type="text" placeholder="Search" />
+            <img src="assets/img/icon/ico_search.svg" alt="Search" />
+          </div>
+
+          <ul class="header-menu ul">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Company Profile</a></li>
+            <li><a href="index2.html">Products</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">R & D</a></li>
+            <li><a href="index4.html">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <aside class="BannerContactUs"></aside>
+
+    <main id="app" class="ContactMain wrapperTwo">
+      <h1>Contact us</h1>
+      <p>*****</p>
+
+      <table v-if="cart!=''">
+        <tr>
+          <th>Photo</th>
+          <th>Product Name</th>
+          <th>Short description</th>
+          <th>Options</th>
+        </tr>
+        <tr v-for="c in cart">
+          <td>
+            <img
+              style="height: 50px; width: 50px"
+              :src="'assets/img/Products/'+c.image"
+              alt=""
+            />
+          </td>
+          <td>{{c.title}}</td>
+          <td>{{c.short_text}}</td>
+          <td>
+            <a href="#" @click.prevent="removeFromCart(c.id)">X</a>
+          </td>
+        </tr>
+      </table>
+
+      <form
+        style="padding-top: 40px"
+        action="index4.html"
+        class="ContactMainFormContainer"
+        @submit.prevent="makeOrder()"
+        v-if="order==0"
+      >
+        <section>
+          <section>
+            <label for="text">Name *</label>
+            <input
+              type="text"
+              name="name"
+              v-model="contactFields.name"
+              required=""
+            />
+          </section>
+          <section>
+            <label for="text">Company Name</label>
+            <input
+              type="text"
+              name="company_name"
+              v-model="contactFields.company_name"
+            />
+          </section>
+          <section>
+            <label for="text">Position</label>
+            <input
+              type="text"
+              name="position"
+              v-model="contactFields.position"
+            />
+          </section>
+          <section>
+            <label for="text">City</label>
+            <input type="text" name="city" v-model="contactFields.city" />
+          </section>
+          <section>
+            <label for="text">Country</label>
+            <input type="text" name="country" v-model="contactFields.country" />
+          </section>
+          <section>
+            <label for="text">Telephone</label>
+            <input
+              type="text"
+              name="telephone"
+              v-model="contactFields.telephone"
+            />
+          </section>
+          <section>
+            <label for="text">Email *</label>
+            <input
+              type="text"
+              name="email"
+              required=""
+              v-model="contactFields.email"
+            />
+          </section>
+        </section>
+        <section>
+          <section>
+            <label for="text">You are a</label>
+            <select
+              class="selectyour"
+              name="select"
+              v-model="contactFields.select"
+            >
+              <option>seed producer</option>
+            </select>
+          </section>
+          <section>
+            <label for="text">If other, please specify</label>
+            <input type="text" name="other" />
+          </section>
+          <section>
+            <label for="text">If other, please specify</label>
+            <textarea name="text" id="" cols="30" rows="10"></textarea>
+          </section>
+          <section class="contactuscaptcha">
+            <label for="text">Please type this code</label>
+            <section>
+              <img src="assets/img/ContactUsCaptcha.svg" alt="Captcha" />
+              <input type="text" />
+              <button>Send Message</button>
+            </section>
+          </section>
+        </section>
+      </form>
+      <div v-if="order==1">
+        <strong style="font-size: 32px">Thank You</strong>
+        <div style="font-size: 24px; padding-bottom: 40px">
+          <p>Name: {{contactFields.name}}</p>
+          <p>Company Name: {{contactFields.company_name}}</p>
+          <p>Position: {{contactFields.position}}</p>
+          <p>City: {{contactFields.city}}</p>
+          <p>Country: {{contactFields.country}}</p>
+          <p>Telephone: {{contactFields.telephone}}</p>
+          <p>Email: {{contactFields.email}}</p>
+          <p>Select: {{contactFields.select}}</p>
+        </div>
+      </div>
+    </main>
+
+    <aside class="aside-footer-contactus">
+      <section>
+        <h3>Our Address</h3>
+        <div></div>
+        <p>AGRIDERA Seeds & Agriculture Ltd.</p>
+        <p>P.O Box 103,</p>
+        <p>Gedera 70750, Israel.</p>
+        <p>Telephone: <span>+972 8 944 9222</span></p>
+      </section>
+    </aside>
+
+    <footer>
+      <section class="footer-container">
+        <nav class="footer-nav">
+          <ul class="ul">
+            <li><a href="#">PROFILE</a></li>
+            <li><a href="#">MANAGEMENT</a></li>
+            <li><a href="index2.html">PRODUCTS</a></li>
+            <li><a href="#">R&D</a></li>
+            <li><a href="#">LINKS</a></li>
+            <li><a href="#">SITEMAP</a></li>
+            <li><a href="index4.html">CONTACT</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-social">
+          <a href="#"><img src="assets/img/FooterNav/Ico_in.svg" alt="" /></a>
+          <a href="#"><img src="assets/img/FooterNav/Ico_inst.svg" alt="" /></a>
+          <a href="#"><img src="assets/img/FooterNav/Ico_tube.svg" alt="" /></a>
+          <a href="#"><img src="assets/img/FooterNav/Ico_tw.svg" alt="" /></a>
+          <a href="#"><img src="assets/img/FooterNav/Ico_fb.svg" alt="" /></a>
+        </div>
+      </section>
+
+      <section class="footer-final-container">
+        <p>AGRIDERA SEEDS & AGRICULTURE LTD. © 2020</p>
+      </section>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
