@@ -6,12 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="manifest" href="manifest.json" />
-    <script>
+    <script defer>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js").then(function () {
           console.log("Service worker registered!");
         });
       }
+      function askPermission() {
+        return new Promise(function (resolve, reject) {
+          const permissionResult = Notification.requestPermission(function (
+            result
+          ) {
+            resolve(result);
+          });
+
+          if (permissionResult) {
+            permissionResult.then(resolve, reject);
+          }
+        }).then(function (permissionResult) {
+          if (permissionResult !== "granted")
+            throw new Error("We weren't granted permission.");
+        });
+      }
+
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js").then(function () {
+          console.log("Service worker registered!");
+        });
+      }
+
+      navigator.serviceWorker.ready.then((registration) => {
+        if ("PushManager" in window) {
+          document
+            .querySelector("button.subscribe-for-push")
+            .addEventListener("click", () => {
+              if (confirm("Ви згодні отримувати повідомлення?") == true) {
+                askPermission();
+              }
+            });
+        }
+      });
     </script>
     <title>AGRIDERA | Main</title>
   </head>
@@ -39,6 +73,11 @@
             <li><a href="index5.html">Services</a></li>
             <li><a href="index6.html">R & D</a></li>
             <li><a href="index4.html">Contact</a></li>
+            <li>
+              <button class="subscribe-for-push">
+                <img src="assets/img/Bell.png" alt="" />
+              </button>
+            </li>
           </ul>
         </div>
       </nav>
